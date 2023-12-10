@@ -1,0 +1,4 @@
+{
+  "extends": ["plugin:jsx-a11y/recommended", "next/core-web-vitals"],
+  "plugins": ["jsx-a11y"]
+}

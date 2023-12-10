@@ -1,0 +1,36 @@
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+      POSTGRES_DB: app_router
+    ports:
+      - "5432:5432"
+    volumes:
+      - database:/data/db
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+  next-app-router:
+    build:
+      context: ./
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: development
+      # for production
+      # NODE_ENV: production
+    ports:
+      - 3080:3080
+
+volumes:
+  database:
